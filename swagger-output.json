@@ -1,0 +1,408 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "My API",
+    "description": "Description",
+    "version": "1.0.0"
+  },
+  "host": "localhost:5000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/api/packages": {
+      "post": {
+        "tags": [
+          "Package"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Add a package",
+            "schema": {
+              "$ref": "#/definitions/PackageInput"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Package"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/packages/{id}": {
+      "get": {
+        "tags": [
+          "Package"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Package"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Update a package",
+            "schema": {
+              "$ref": "#/definitions/PackageInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Package"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/deliveries": {
+      "post": {
+        "tags": [
+          "Delivery"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Add a delivery",
+            "schema": {
+              "$ref": "#/definitions/DeliveryInput"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Delivery"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/deliveries/{id}": {
+      "get": {
+        "tags": [
+          "Delivery"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Delivery"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Update a delivery",
+            "schema": {
+              "$ref": "#/definitions/DeliveryInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Delivery"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api-docs": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "PackageInput": {
+      "type": "object",
+      "properties": {
+        "package_id": {
+          "type": "string",
+          "example": "string"
+        },
+        "active_delivery_id": {
+          "type": "string",
+          "example": "string"
+        },
+        "description": {
+          "type": "string",
+          "example": "string"
+        },
+        "weight": {
+          "type": "string",
+          "example": "integer"
+        },
+        "width": {
+          "type": "string",
+          "example": "integer"
+        },
+        "height": {
+          "type": "string",
+          "example": "integer"
+        },
+        "depth": {
+          "type": "string",
+          "example": "integer"
+        },
+        "from_name": {
+          "type": "string",
+          "example": "string"
+        },
+        "from_address": {
+          "type": "string",
+          "example": "string"
+        },
+        "from_location": {
+          "type": "object",
+          "properties": {
+            "lat": {
+              "type": "string",
+              "example": "number"
+            },
+            "lng": {
+              "type": "string",
+              "example": "number"
+            }
+          }
+        },
+        "to_name": {
+          "type": "string",
+          "example": "string"
+        },
+        "to_address": {
+          "type": "string",
+          "example": "string"
+        },
+        "to_location": {
+          "type": "object",
+          "properties": {
+            "lat": {
+              "type": "string",
+              "example": "number"
+            },
+            "lng": {
+              "type": "string",
+              "example": "number"
+            }
+          }
+        }
+      }
+    },
+    "DeliveryInput": {
+      "type": "object",
+      "properties": {
+        "delivery_id": {
+          "type": "string",
+          "example": "string"
+        },
+        "package_id": {
+          "type": "string",
+          "example": "string"
+        },
+        "pickup_time": {
+          "type": "string",
+          "example": "string"
+        },
+        "start_time": {
+          "type": "string",
+          "example": "string"
+        },
+        "end_time": {
+          "type": "string",
+          "example": "string"
+        },
+        "location": {
+          "type": "object",
+          "properties": {
+            "lat": {
+              "type": "string",
+              "example": "number"
+            },
+            "lng": {
+              "type": "string",
+              "example": "number"
+            }
+          }
+        },
+        "status": {
+          "type": "object",
+          "properties": {
+            "enum": {
+              "type": "array",
+              "example": [
+                "open",
+                "picked-up",
+                "in-transit",
+                "delivered",
+                "failed"
+              ],
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
