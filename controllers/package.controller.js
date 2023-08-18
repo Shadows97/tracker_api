@@ -17,12 +17,11 @@ exports.createPackage = async (req, res) => {
   try {
     let packageData = req.body;
 
-    // Vérifier si package_id est fourni, sinon en générer un
-    if (!packageData.package_id) {
+    
       // Générer un package_id unique
       const generatedPackageId = uuid.v4(); // Remplace cette ligne par la logique réelle de génération
       packageData.package_id = generatedPackageId;
-    }
+    
 
     const newPackage = await Package.create(packageData);
     res.status(201).json(newPackage);

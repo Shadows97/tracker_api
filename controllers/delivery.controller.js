@@ -14,12 +14,11 @@ exports.createDelivery = async (req, res) => {
   try {
     let deliveryData = req.body;
 
-    // Vérifier si package_id est fourni, sinon en générer un
-    if (!deliveryData.delivery_id) {
-      // Générer un package_id unique
+   
+      // Générer un delivery_id unique
       const generatedDeliveryId = uuid.v4(); // Remplace cette ligne par la logique réelle de génération
       deliveryData.delivery_id = generatedDeliveryId;
-    }
+    
     const newDelivery = await Delivery.create(req.body);
     res.status(201).json(newDelivery);
   } catch (error) {
@@ -78,6 +77,20 @@ exports.updateDelivery = async (req, res) => {
     const updatedDelivery = await Delivery.findOneAndUpdate(
       { delivery_id: deliveryId }, newData, { new: true }
     );
+
+    // Vérifier si la propriété "status" est modifiée
+    if (newData.status !== undefined && newData.status !== existingDelivery.status) {
+      if (newData.status === "picked-up") {
+        updatedDelivery.pickup_time = new Date();
+      } else if (newData.status === "in-transit" && existingDelivery.status === "picked-up") {
+        updatedDelivery.start_time = new Date();
+      } else if ((newData.status === "delivered" || newData.status === "failed") && existingDelivery.status === "in-transit") {
+        updatedDelivery.end_time = new Date();
+      }
+    }
+
+    // Mettre à jour la livraison
+    await updatedDelivery.save();
 
     // Vérifier si la propriété "location" ou "status" est modifiée
     if (

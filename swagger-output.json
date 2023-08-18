@@ -385,22 +385,8 @@
           }
         },
         "status": {
-          "type": "object",
-          "properties": {
-            "enum": {
-              "type": "array",
-              "example": [
-                "open",
-                "picked-up",
-                "in-transit",
-                "delivered",
-                "failed"
-              ],
-              "items": {
-                "type": "string"
-              }
-            }
-          }
+          "type": "string",
+          "example": "string"
         }
       }
     }

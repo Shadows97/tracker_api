@@ -40,9 +40,7 @@ const doc = {
         "lat": "number",
         "lng": "number"
       },
-      "status": {
-        "enum": ["open", "picked-up", "in-transit", "delivered", "failed"]
-      }
+      "status": "string"
     }
   }
 };
