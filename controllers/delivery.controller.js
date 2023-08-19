@@ -22,7 +22,14 @@ exports.createDelivery = async (req, res) => {
     const newDelivery = await Delivery.create(req.body);
     res.status(201).json(newDelivery);
   } catch (error) {
-    res.status(500).json({ error: 'Une erreur est survenue lors de la création de la livraison.' });
+    if (error.name === 'ValidationError') {
+      
+      res.status(406).json({ message: 'Erreur de validation du corps de la requête.', error: error });
+    } else {
+      
+      res.status(500).json({ error: 'Une erreur est survenue lors de la création de la livraison.' });
+    }
+    
   }
 };
 
@@ -108,7 +115,16 @@ exports.updateDelivery = async (req, res) => {
     req.io.emit("update", {event: "delivery_updated", delivery_object: updatedDelivery})
     res.status(200).json(updatedDelivery);
   } catch (error) {
-    res.status(500).json({ error: 'Une erreur est survenue lors de la mise à jour de la livraison.' });
+    if (error.name === 'ValidationError') {
+      
+      res.status(406).json({ message: 'Erreur de validation du corps de la requête.', error: error });
+    } else {
+      
+      res.status(500).json({ error: 'Une erreur est survenue lors de la mise à jour de la livraison.' });
+    }
+    
+  
+    
   }
 };
 

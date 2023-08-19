@@ -31,6 +31,9 @@
           "201": {
             "description": "Created"
           },
+          "406": {
+            "description": "Not Acceptable"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -105,6 +108,9 @@
           "404": {
             "description": "Not Found"
           },
+          "406": {
+            "description": "Not Acceptable"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -155,6 +161,9 @@
         "responses": {
           "201": {
             "description": "Created"
+          },
+          "406": {
+            "description": "Not Acceptable"
           },
           "500": {
             "description": "Internal Server Error"
@@ -229,6 +238,9 @@
           },
           "404": {
             "description": "Not Found"
+          },
+          "406": {
+            "description": "Not Acceptable"
           },
           "500": {
             "description": "Internal Server Error"

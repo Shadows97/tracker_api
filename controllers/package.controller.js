@@ -26,7 +26,14 @@ exports.createPackage = async (req, res) => {
     const newPackage = await Package.create(packageData);
     res.status(201).json(newPackage);
   } catch (error) {
-    res.status(500).json({ error: 'Une erreur est survenue lors de la création du package.' });
+    
+    if (error.name === 'ValidationError') {
+      
+      res.status(406).json({ message: 'Erreur de validation du corps de la requête.', error: error });
+    } else {
+      
+      res.status(500).json({ error: 'Une erreur est survenue lors de la création du package.' });
+    }
   }
 };
 
@@ -75,7 +82,14 @@ exports.updatePackage = async (req, res) => {
     }
     res.status(200).json(updatedPackage);
   } catch (error) {
-    res.status(500).json({ error: 'Une erreur est survenue lors de la mise à jour du package.' });
+    if (error.name === 'ValidationError') {
+      
+      res.status(406).json({ message: 'Erreur de validation du corps de la requête.', error: error });
+    } else {
+      
+      res.status(500).json({ error: 'Une erreur est survenue lors de la mise à jour du package.' });
+    }
+    
   }
 };
 
