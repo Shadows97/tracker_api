@@ -14,9 +14,7 @@ exports.createDelivery = async (req, res) => {
   try {
     let deliveryData = req.body;
 
-   
-      // Générer un delivery_id unique
-      const generatedDeliveryId = uuid.v4(); // Remplace cette ligne par la logique réelle de génération
+      const generatedDeliveryId = uuid.v4();
       deliveryData.delivery_id = generatedDeliveryId;
     
     const newDelivery = await Delivery.create(req.body);
@@ -69,7 +67,7 @@ exports.updateDelivery = async (req, res) => {
                 schema: { $ref: '#/definitions/DeliveryInput' }
         } */
   const deliveryId = req.params.id;
-  const newData = req.body; // Données à mettre à jour
+  const newData = req.body;
 
   try {
     const existingDelivery = await Delivery.findOne({ delivery_id: deliveryId });
@@ -79,13 +77,10 @@ exports.updateDelivery = async (req, res) => {
     }
 
     
-
-    // Mettre à jour la livraison
     const updatedDelivery = await Delivery.findOneAndUpdate(
       { delivery_id: deliveryId }, newData, { new: true }
     );
 
-    // Vérifier si la propriété "status" est modifiée
     if (newData.status !== undefined && newData.status !== existingDelivery.status) {
       if (newData.status === "picked-up") {
         updatedDelivery.pickup_time = new Date();
@@ -96,15 +91,15 @@ exports.updateDelivery = async (req, res) => {
       }
     }
 
-    // Mettre à jour la livraison
+   
     await updatedDelivery.save();
 
-    // Vérifier si la propriété "location" ou "status" est modifiée
+    
     if (
       newData.location !== undefined ||
       newData.status !== undefined
     ) {
-      // Effectuer une action spécifique ici
+      
       if (newData.location) {
         req.io.emit("update", {event: "location_changed", delivery_id: updatedDelivery.delivery_id, location: updatedDelivery.location})
       }

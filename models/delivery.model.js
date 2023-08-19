@@ -16,11 +16,11 @@ const deliverySchema = new mongoose.Schema({
   },
   start_time: {
     type: Date,
-    required: false // You can adjust this as needed
+    required: false 
   },
   end_time: {
     type: Date,
-    required: false // You can adjust this as needed
+    required: false 
   },
   location: {
     lat: { type: Number, required: true },

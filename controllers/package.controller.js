@@ -18,8 +18,7 @@ exports.createPackage = async (req, res) => {
     let packageData = req.body;
 
     
-      // Générer un package_id unique
-      const generatedPackageId = uuid.v4(); // Remplace cette ligne par la logique réelle de génération
+      const generatedPackageId = uuid.v4();
       packageData.package_id = generatedPackageId;
     
 

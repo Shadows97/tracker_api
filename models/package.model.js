@@ -8,7 +8,7 @@ const packageSchema = new mongoose.Schema({
   },
   active_delivery_id: {
     type: String,
-    required: false // You can adjust this as needed
+    required: false
   },
   description: {
     type: String,
