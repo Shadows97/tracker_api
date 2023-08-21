@@ -1,4 +1,5 @@
 const Delivery = require('../../tracker_api/models/delivery.model');
+const Package = require('../../tracker_api/models/package.model');
 const uuid = require('uuid');
 
 // Créer une nouvelle livraison
@@ -18,6 +19,9 @@ exports.createDelivery = async (req, res) => {
       deliveryData.delivery_id = generatedDeliveryId;
     
     const newDelivery = await Delivery.create(req.body);
+
+    const updatePackage = await Package.findOneAndUpdate(
+      {package_id: newDelivery.package_id},{active_delivery_id: newDelivery.delivery_id})
     res.status(201).json(newDelivery);
   } catch (error) {
     if (error.name === 'ValidationError') {
@@ -107,6 +111,8 @@ exports.updateDelivery = async (req, res) => {
         req.io.emit("update", {event: "status_changed", delivery_id: updatedDelivery.delivery_id, status: updatedDelivery.status})
       }
     }
+    const updatePackage = await Package.findOneAndUpdate(
+      {package_id: updatedDelivery.package_id},{active_delivery_id: updatedDelivery.delivery_id})
     req.io.emit("update", {event: "delivery_updated", delivery_object: updatedDelivery})
     res.status(200).json(updatedDelivery);
   } catch (error) {

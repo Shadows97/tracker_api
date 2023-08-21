@@ -12,7 +12,7 @@ const deliverySchema = new mongoose.Schema({
   },
   pickup_time: {
     type: Date,
-    required: true
+    required: false
   },
   start_time: {
     type: Date,
