@@ -57,7 +57,7 @@ exports.getDeliveryById = async (req, res) => {
     }
     res.status(200).json(delivery);
   } catch (error) {
-    res.status(500).json({ error: 'Une erreur est survenue lors de la récupération de la livraison.' });
+    res.status(500).json({ error: 'Une erreur est survenue lors de la récupération de la livraison.', message: error });
   }
 };
 
@@ -144,3 +144,45 @@ exports.deleteDelivery = async (req, res) => {
     res.status(500).json({ error: 'Une erreur est survenue lors de la suppression de la livraison.' });
   }
 };
+
+exports.updateStatus = async (deliveryId, newStatus) => {
+  try {
+    const updatedDelivery = await Delivery.findOneAndUpdate(
+      { delivery_id: deliveryId },
+      { status: newStatus },
+      { new: true }
+    );
+
+    if (!updatedDelivery) {
+      // Gérer le cas où la livraison n'est pas trouvée
+      return null;
+    }
+
+    return updatedDelivery;
+  } catch (error) {
+    // Gérer les erreurs de mise à jour
+    throw error;
+  }
+};
+
+exports.updateLocation = async (deliveryId, newLocation) => {
+  try {
+    const updatedDelivery = await Delivery.findOneAndUpdate(
+      { delivery_id: deliveryId },
+      { location: newLocation },
+      { new: true }
+    );
+
+    if (!updatedDelivery) {
+      // Gérer le cas où la livraison n'est pas trouvée
+      return null;
+    }
+
+    return updatedDelivery;
+  } catch (error) {
+    // Gérer les erreurs de mise à jour
+    throw error;
+  }
+};
+
+
