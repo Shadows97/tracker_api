@@ -147,6 +147,7 @@ exports.deleteDelivery = async (req, res) => {
 
 exports.updateStatus = async (deliveryId, newStatus) => {
   try {
+    const existingDelivery = await Delivery.findOne({ delivery_id: deliveryId });
     const updatedDelivery = await Delivery.findOneAndUpdate(
       { delivery_id: deliveryId },
       { status: newStatus },
@@ -156,6 +157,15 @@ exports.updateStatus = async (deliveryId, newStatus) => {
     if (!updatedDelivery) {
       // Gérer le cas où la livraison n'est pas trouvée
       return null;
+    }
+    if (updatedDelivery.status !== undefined && newData.status !== existingDelivery.status) {
+      if (newStatus === "picked-up") {
+        updatedDelivery.pickup_time = new Date();
+      } else if (newStatus === "in-transit" && existingDelivery.status === "picked-up") {
+        updatedDelivery.start_time = new Date();
+      } else if ((newStatus === "delivered" || newStatus === "failed") && existingDelivery.status === "in-transit") {
+        updatedDelivery.end_time = new Date();
+      }
     }
 
     return updatedDelivery;
